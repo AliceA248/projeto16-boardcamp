@@ -4,7 +4,7 @@ export async function createGame (req, res) {
     const { name,image,stockTotal,pricePerDay } = req.body;
 
     const game = await db.query(`INSERT INTO games (name,image,"stockTotal","pricePerDay") VALUES ($1,$2,$3,$4);`, [name,image,stockTotal,pricePerDay])
-    if ( rowCount ) {
+    if ( game.rowCount ) {
     return res.sendStatus(201)  
     }
     res.sendStatus(500)
