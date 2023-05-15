@@ -82,3 +82,23 @@ export async function deleteRental(req, res) {
     res.sendStatus(500);
   }
 }
+
+export async function finalizeRental(req, res) {
+  const { rentalId } = req.params
+  const { pricePerDay, rentDate, daysRented } = res.locals
+  let delayFee;
+
+  try {
+      const isDelay = dayjs().diff(rentDate, 'day')
+
+      if(isDelay > daysRented) delayFee = isDelay - daysRented
+      else delayFee = 0
+
+      await connection.query(updateRentalQuery, [dayjs().format('YYYY-MM-DD'), delayFee * pricePerDay, rentalId])
+
+      res.sendStatus(200)
+  } catch (err) {
+      console.log(err)
+      res.status(500).send(err)
+  }
+}

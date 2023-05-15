@@ -1,5 +1,6 @@
 import { db } from "../database/database.connection.js";
 
+
 export async function getCustomer(req, res) {
   const id = req.params.id;
   const customer = await db.query(`SELECT * FROM customers WHERE id = $1;`, [id]);
