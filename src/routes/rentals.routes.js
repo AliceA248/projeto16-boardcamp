@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { createRental, deleteRental, finalizeRental, getRentals } from '../controllers/rentals.controllers.js';
 
+
 const rentalsRouter = Router();
 
 rentalsRouter.post('/rentals', createRental);
