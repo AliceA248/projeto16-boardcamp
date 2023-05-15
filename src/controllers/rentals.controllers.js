@@ -4,6 +4,10 @@ import dayjs from "dayjs";
 export async function createRental(req, res) {
   const rental = req.body;
 
+  if (rental.daysRented <= 0) {
+    return res.status(400).send("O número de dias alugados deve ser maior que 0");
+  }
+
   try {
     const customer = await db.query("SELECT * FROM customers WHERE id = $1", [
       rental.customerId,
@@ -53,6 +57,7 @@ export async function createRental(req, res) {
     res.sendStatus(500);
   }
 }
+
 
 export async function getRentals(req, res) {
   const rentals = await db.query(`SELECT * FROM rentals;`)
