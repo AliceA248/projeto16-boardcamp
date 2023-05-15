@@ -53,3 +53,9 @@ export async function createRental(req, res) {
     res.sendStatus(500);
   }
 }
+
+export async function getRentals(req, res) {
+  const rentals = await db.query(`SELECT * FROM rentals;`)
+    res.send(rentals.rows)
+
+}
