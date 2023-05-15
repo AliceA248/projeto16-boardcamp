@@ -20,31 +20,14 @@ export async function getCustomers(req, res) {
 
 
 
-export async function createCustomer(req, res) {
-  const { name, phone, cpf, birthday } = req.body;
+export async function createCustomer (req, res) {
+    const { name,phone,cpf,birthday } = req.body;
 
-  if (!name || !phone || !cpf || !birthday) {
-    return res.sendStatus(400);
-  }
-
-  const existingCustomer = await db.query(
-    'SELECT * FROM customers WHERE cpf = $1',
-    [cpf]
-  );
-  if (existingCustomer.rowCount > 0) {
-    return res.sendStatus(409);
-  }
-  try {
-    const insertQuery = `
-      INSERT INTO customers (name, phone, cpf, birthday)
-      VALUES ($1, $2, $3, $4);
-    `;
-    await db.query(insertQuery, [name, phone, cpf, birthday]);
-    return res.sendStatus(201);
-  } catch (error) {
-    console.log(error);
-    return res.sendStatus(500);
-  }
+    const customer = await db.query(`INSERT INTO customers (name,phone,cpf,birthday) VALUES ($1,$2,$3,$4);`, [name,phone,cpf,birthday])
+    if ( customer.rowCount ) {
+    return res.sendStatus(201)  
+    }
+    res.sendStatus(500)
 }
 
 
