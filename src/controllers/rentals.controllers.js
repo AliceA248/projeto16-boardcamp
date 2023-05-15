@@ -62,9 +62,8 @@ export async function getRentals(req, res) {
 
 
 
-
 export async function deleteRental(req, res) {
-  const { id } = req.params.id;
+  const { id } = req.params;
 
   try {
     const rental = await db.query('SELECT * FROM rentals WHERE id = $1', [id]);
@@ -82,6 +81,7 @@ export async function deleteRental(req, res) {
     res.sendStatus(500);
   }
 }
+
 
 export async function finalizeRental(req, res) {
   const { id } = req.params;
