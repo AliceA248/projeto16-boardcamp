@@ -3,13 +3,12 @@ import { db } from "../database/database.connection.js";
 export async function createGame(req, res) {
     const { name, image, stockTotal, pricePerDay } = req.body;
   
-    // Verificar se algum campo obrigatório está faltando
+ 
     if (!name || !image || !stockTotal || !pricePerDay) {
       return res.sendStatus(400);
     }
   
     try {
-      // Verificar se já existe um jogo com o mesmo nome
       const existingGame = await db.query('SELECT * FROM games WHERE name = $1', [name]);
       if (existingGame.rowCount > 0) {
         return res.sendStatus(409);
