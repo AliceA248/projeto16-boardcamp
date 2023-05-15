@@ -6,7 +6,7 @@ import { gameSchema } from "../schemas/schema.js";
 
 const gamesRouter = Router()
 
-gamesRouter.get("/games",validateSchemaMiddleware(gameSchema), getGames)
-gamesRouter.post("/games", createGame)
+gamesRouter.get("/games", getGames)
+gamesRouter.post("/games",validateSchemaMiddleware(gameSchema),createGame)
 
 export default gamesRouter;
