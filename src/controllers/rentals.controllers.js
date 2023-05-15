@@ -61,6 +61,8 @@ export async function getRentals(req, res) {
 }
 
 
+
+
 export async function deleteRental(req, res) {
   const { id } = req.params;
 

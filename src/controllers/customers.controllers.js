@@ -6,7 +6,7 @@ export async function getCustomer(req, res) {
   const customer = await db.query(`SELECT * FROM customers WHERE id = $1;`, [id]);
 
   if (customer.rowCount === 0) {
-    return res.sendStatus(404);
+    return res.sendStatus(500);
   }
 
   return res.send(customer.rows);
@@ -20,7 +20,7 @@ export async function createCustomer (req, res) {
     if ( customer.rowCount ) {
     return res.sendStatus(201)  
     }
-    res.sendStatus(400)
+    res.sendStatus(500)
 }
 
   
