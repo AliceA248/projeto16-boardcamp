@@ -7,7 +7,7 @@ export async function createGame (req, res) {
     if ( game.rowCount ) {
     return res.sendStatus(201)  
     }
-    res.sendStatus(500)
+    res.sendStatus(400)
 }
 
 
