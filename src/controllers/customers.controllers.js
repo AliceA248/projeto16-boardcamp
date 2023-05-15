@@ -1,12 +1,11 @@
 import { db } from "../database/database.connection.js";
 
-
 export async function getCustomer(req, res) {
   const id = req.params.id;
   const customer = await db.query(`SELECT * FROM customers WHERE id = $1;`, [id]);
 
   if (customer.rowCount === 0) {
-    return res.sendStatus(500);
+    return res.sendStatus(404);
   }
 
   return res.send(customer.rows);
