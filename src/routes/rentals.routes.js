@@ -1,6 +1,7 @@
-import { Router } from "express"
+import { Router } from 'express'
+import { createRental } from '../controllers/rentals.controllers.js'
 
 const rentalsRouter = Router()
 
-
-export default rentalsRouter;
+rentalsRouter.post("/rentals", createRental)
+export default rentalsRouter
