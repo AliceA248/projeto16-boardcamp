@@ -1,11 +1,11 @@
 import { Router } from "express"
-import { createCustomer, getCustomer, getCustomers} from "../controllers/customers.controllers.js"
+import { createCustomer, getCustomer} from "../controllers/customers.controllers.js"
 
 
 const customerRouter = Router()
 
-customerRouter.get("/customers", getCustomers)
-customerRouter.get("/customers/:id", getCustomer)
+customerRouter.get("/customers", getCustomer)
+customerRouter.get("/customers/:id")
 customerRouter.post("/customers", createCustomer)
 customerRouter.put("/customers/:id")
 
