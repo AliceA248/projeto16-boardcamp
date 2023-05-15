@@ -104,8 +104,9 @@ export async function deleteRental(req, res) {
     }
 
     if (rental.rows[0].returnDate) {
-      return res.status(400).send('O aluguel já foi finalizado e não pode ser excluído novamente.');
+      return res.status(400).send('O aluguel já foi finalizado e portanto não pode ser excluído!');
     }
+    
 
     await db.query('DELETE FROM rentals WHERE id = $1', [id]);
     res.sendStatus(200);

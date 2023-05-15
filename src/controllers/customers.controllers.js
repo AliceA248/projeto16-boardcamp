@@ -10,25 +10,41 @@ export async function getCustomers(req, res) {
       return res.sendStatus(404);
     }
 
-    return res.send(customer.rows[0]);
+    const formattedCustomer = formatCustomerBirthday(customer.rows[0]);
+    return res.send(formattedCustomer);
   } else {
     const customers = await db.query('SELECT * FROM customers');
 
-    return res.send(customers.rows);
+    const formattedCustomers = customers.rows.map((customer) =>
+      formatCustomerBirthday(customer)
+    );
+    return res.send(formattedCustomers);
   }
 }
 
-
-
-export async function createCustomer (req, res) {
-    const { name,phone,cpf,birthday } = req.body;
-
-    const customer = await db.query(`INSERT INTO customers (name,phone,cpf,birthday) VALUES ($1,$2,$3,$4);`, [name,phone,cpf,birthday])
-    if ( customer.rowCount ) {
-    return res.sendStatus(201)  
-    }
-    res.sendStatus(500)
+function formatCustomerBirthday(customer) {
+  const formattedCustomer = { ...customer };
+  formattedCustomer.birthday = new Date(customer.birthday).toISOString().split('T')[0];
+  return formattedCustomer;
 }
+
+
+export async function createCustomer(req, res) {
+  const { name, phone, cpf, birthday } = req.body;
+
+  const existingCustomer = await db.query('SELECT * FROM customers WHERE cpf = $1', [cpf]);
+  if (existingCustomer.rowCount > 0) {
+    return res.sendStatus(409);
+  }
+
+  const customer = await db.query('INSERT INTO customers (name, phone, cpf, birthday) VALUES ($1, $2, $3, $4)', [name, phone, cpf, birthday]);
+  if (customer.rowCount) {
+    return res.sendStatus(201);
+  }
+
+  res.sendStatus(500);
+}
+
 
 
 export async function updateCustomer(req, res) {
