@@ -108,6 +108,7 @@ export async function deleteRental(req, res) {
       return res.sendStatus(404);
     }
 
+    console.log(rental.rows)
     if (rental.rows[0].returnDate) {
       return res.status(400).send('O aluguel já foi finalizado e portanto não pode ser excluído!');
     }
