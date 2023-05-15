@@ -1,7 +1,7 @@
 import { db } from "../database/database.connection.js";
 
 export async function getCustomers(req, res) {
-  const id = req.params.id;
+  const { id } = req.params;
 
   if (id) {
     const customer = await db.query('SELECT * FROM customers WHERE id = $1', [id]);
@@ -17,6 +17,7 @@ export async function getCustomers(req, res) {
     return res.send(customers.rows);
   }
 }
+
 
 
 export async function createCustomer (req, res) {

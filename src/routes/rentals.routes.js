@@ -8,4 +8,6 @@ rentalsRouter.get('/rentals', getRentals);
 rentalsRouter.post('/rentals/:id/return', finalizeRental);
 rentalsRouter.delete('/rentals/:id', deleteRental);
 
+
+
 export default rentalsRouter;

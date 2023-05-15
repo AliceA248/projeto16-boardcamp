@@ -5,7 +5,7 @@ import { createCustomer, getCustomers} from "../controllers/customers.controller
 const customerRouter = Router()
 
 customerRouter.get("/customers", getCustomers)
-customerRouter.get("/customers/:id")
+customerRouter.get("/customers/:id", getCustomers)
 customerRouter.post("/customers", createCustomer)
 customerRouter.put("/customers/:id")
 
